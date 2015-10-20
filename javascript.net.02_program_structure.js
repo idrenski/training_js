@@ -254,15 +254,16 @@ console.log(deepEqual(obj, {here: 1, object: 2}));
 console.log(deepEqual(obj, {here: {is: "an"}, object: 2}));
 console.log(deepEqual(obj, {here: {is: "xx"}, object: 2}));*/
 
+/*
 function forEach(array, action) {
     for (var i = 0; i < array.length; i++)
         action(array[i]);
 }
 
-/*forEach(["Wampeter", "Foma", "Granfalloon"], console.log);
+/!*forEach(["Wampeter", "Foma", "Granfalloon"], console.log);
 // ? Wampeter
 // ? Foma
-// ? Granfalloon*/
+// ? Granfalloon*!/
 
 
 var numbers = [1, 2, 3, 4, 5], sum = 0;
@@ -271,4 +272,42 @@ forEach(numbers, function(number) {
 });
 console.log(sum);
 // ? 15
+*/
 
+
+var arrays = [[1, 2, 3], [4, 5], [6]];
+
+// Loop in elements of simple array
+function reduce(arr, vArr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] instanceof Array)
+            return reduce(arr[i]);
+        else
+            vArr.push(arr[i]);
+
+    }
+}
+
+/*
+function reduce(arr, vArr) {
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] instanceof Array)
+            return reduce(arr[i]);
+        else
+            vArr.push(arr[i].toString());
+
+    }
+}
+*/
+
+
+// Loop in elements of array of arrays
+function concat(arrs, f) {
+    var vArr = [];
+
+    for (var i = 0; i < arrs.length; i++)
+        f(arrs[i], vArr);
+    return vArr;
+}
+
+console.log(concat(arrays, reduce));
