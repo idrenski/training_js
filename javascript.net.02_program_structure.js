@@ -313,6 +313,7 @@ function concat(arrs, f) {
 
 console.log(concat(arrays, reduce));*/
 
+/*
 var ANCESTRY_FILE = "[\n  " + [
         '{"name": "Carolus Haverbeke", "sex": "m", "born": 1832, "died": 1905, "father": "Carel Haverbeke", "mother": "Maria van Brussel"}',
         '{"name": "Emma de Milliano", "sex": "f", "born": 1876, "died": 1956, "father": "Petrus de Milliano", "mother": "Sophia van Damme"}',
@@ -414,10 +415,10 @@ function predictLifeSpan(anc_file) {
     for (var j = 0; j < pairCenturyLifeSpan.length; j++) {
 
         if (currCentury != pairCenturyLifeSpan[j].Century) {
-            /* if start new Century:
+            /!* if start new Century:
              * 1. create output for the current Century:LifeSpan
              * 2. prepare the variables for the new Century
-             * */
+             * *!/
             resCenturyLifeSpan += formatCenturyLifeSpan(currCentury, lifeSpan);
             currCentury = pairCenturyLifeSpan[j].Century;
             lifeSpan = [];
@@ -432,3 +433,119 @@ function predictLifeSpan(anc_file) {
 }
 
 console.log(predictLifeSpan(ANCESTRY_FILE));
+*/
+
+/*/!*
+* 1. Create an object
+* 2. Create a property associated with function speak
+* 3. Call object.property
+* *!/
+var rabbit = {};
+rabbit.speak = function(line) {
+    console.log("The rabbit says '" + line + "'");
+};
+rabbit.speak("I'm alive.");
+//
+
+
+/!*
+* 1. Create a constructor
+* 2. Create two objects killerRabbit and blackRabbit
+* 3. Check the value of the property's Object*!/
+function Rabbit(type) {
+    this.type = type;
+}
+
+var killerRabbit = new Rabbit("killer");
+var blackRabbit = new Rabbit("black");
+console.log(killerRabbit.type);
+console.log(blackRabbit.type);
+//
+
+
+/!*
+* Constructors (in fact, all functions) automatically get a property named prototype, an empty object that derives from Object.prototype.
+* *!/
+Rabbit.prototype.speak = function(line) {
+    console.log("The " + this.type + " rabbit says '" +
+        line + "'");
+};
+blackRabbit.speak("Doom...");*/
+
+/*var map = {};
+function storePhi(event, phi) {
+    map[event] = phi;
+}
+
+storePhi("pizza", 0.069);
+storePhi("touched tree", -0.081);
+
+for (var name in map)
+    console.log(name, map[name]);
+
+//console.log("map.pizza", map.pizza);
+//console.log("map['touched tree']", map['touched tree']);*/
+
+//
+/*
+var pile = {
+    elements: ["eggshell", "orange peel", "worm"],
+    get height() {
+        return this.elements.length;
+    },
+    set height(value) {
+        this.elements.push(value);
+        console.log(this.elements);
+        //console.log("Ignoring attempt to set height to", value);
+    }
+};
+
+console.log('>>>', Object.getPrototypeOf(pile), Object.getOwnPropertyNames(pile));
+console.log('>>>>>>', Object.keys(pile));
+
+
+
+console.log(pile.height);
+// → 3
+pile.height = 100;
+// → Ignoring attempt to set height to 100
+console.log(pile.height);
+
+pile.height = "Hello";
+// → Ignoring attempt to set height to 100
+console.log(pile.height);*/
+
+
+/* Exercise OO JavaScript*/
+/* Constructor Vector with two parameters*/
+function Vector(x, y) {
+    this.x = x;
+    this.y = y;
+}
+console.log('set', new Vector(1, 2));
+
+// Add method plus
+Vector.prototype.plus = function (newVector) {
+    this.x = this.x + newVector.x;
+    this.y = this.y + newVector.y;
+    return new Vector(this.x, this.y);
+};
+console.log('plus', new Vector(1, 2).plus(new Vector(2, 3)));
+
+// Add method minus
+Vector.prototype.minus = function (newVector) {
+    this.x = this.x - newVector.x;
+    this.y = this.y - newVector.y;
+    return new Vector(this.x, this.y);
+};
+console.log('minus', new Vector(1, 2).minus(new Vector(2, 3)));
+
+// Add property length as getter
+Vector.prototype = {
+    get length() {
+        return Math.sqrt(Math.pow(this.x, 2) + Math.pow(this.y, 2));
+    }
+};
+console.log('length', new Vector(3, 4).length);
+
+console.log('object ', Vector.prototype);
