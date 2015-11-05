@@ -515,7 +515,7 @@ pile.height = "Hello";
 // → Ignoring attempt to set height to 100
 console.log(pile.height);*/
 
-
+/* ****************************************************************************************** */
 /* Exercise OO JavaScript*/
 /* Constructor Vector with two parameters*/
 function Vector(x, y) {
@@ -549,3 +549,66 @@ Vector.prototype = {
 console.log('length', new Vector(3, 4).length);
 
 console.log('object ', Vector.prototype);
+
+/* ****************************************************************************************** */
+/* Exercise 2 OO JavaScript */
+function sequenceObj() {
+    this.currentPosition = 0;
+}
+
+sequenceObj.prototype = {
+    sequence: [],
+    get length() {
+        return this.sequence.length;
+    },
+    get currentPos() {
+        return this.currentPosition;
+    },
+    set currentPos(val) {
+        this.currentPosition = val;
+    }
+};
+
+sequenceObj.prototype.next = function () {
+
+    if (this.currentPos < this.length) {
+        this.currentPos = this.currentPos + 1;
+        return this.sequence[this.currentPos];
+    }
+    else
+        return null;
+};
+
+sequenceObj.prototype.current = function () {
+
+    return this.sequence[this.currentPos];
+};
+
+
+function ArraySeq(arr) {
+    var myArrayObj = new sequenceObj();
+
+    myArrayObj.sequence = arr;
+
+    /* next line is for debug */
+    console.log('arrayLength-', myArrayObj.length, 'currentValue-', myArrayObj.current(), 'nextTwoValues-', myArrayObj.next(), myArrayObj.next());
+
+    return myArrayObj.sequence;
+}
+
+
+function RangeSeq(b, e) {
+    var myRangeSeq = new sequenceObj();
+
+    for (var i = b; i <= e; i++)
+        myRangeSeq.sequence.push(i);
+
+    /* next two lines are for debug */
+    myRangeSeq.next();
+    console.log('arrayLength-', myRangeSeq.length, 'currentValue-', myRangeSeq.current(), 'nextTwoValues-', myRangeSeq.next(), myRangeSeq.next());
+
+    return myRangeSeq.sequence;
+}
+
+console.log(new ArraySeq([1, 2]));
+console.log(new RangeSeq(111, 122));
