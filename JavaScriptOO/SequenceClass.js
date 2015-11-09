@@ -7,11 +7,11 @@
 /* Constructor */
 function SequenceClass() {
     this.currentPosition = -1;
+    this.sequence = [];
 }
 
 /* Class */
 SequenceClass.prototype = {
-    sequence: [],
     get length() {
         return this.sequence.length;
     },
@@ -40,7 +40,7 @@ SequenceClass.prototype.next = function () {
 /* Functions which use Instances of SequenceClass*/
 function ArraySeq(arr) {
     var myArrayObj = new SequenceClass();
-    myArrayObj.sequence = [];
+
     var b = arr[0];
     var e = arr[arr.length - 1];
 
