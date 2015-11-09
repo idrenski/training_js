@@ -6,7 +6,7 @@
 
 /* Constructor */
 function SequenceClass() {
-    this.currentPosition = 0;
+    this.currentPosition = -1;
 }
 
 /* Class */
@@ -26,27 +26,29 @@ SequenceClass.prototype = {
 /* Interfaces */
 SequenceClass.prototype.next = function () {
 
+    this.currentPos++;
     if (this.currentPos < this.length) {
-        this.currentPos = this.currentPos + 1;
         return this.sequence[this.currentPos];
     }
-    else
-        return null;
 };
 
-SequenceClass.prototype.current = function () {
+/*SequenceClass.prototype.current = function () {
 
-    return this.sequence[this.currentPos];
-};
+ return this.sequence[this.currentPos];
+ };*/
 
 /* Functions which use Instances of SequenceClass*/
 function ArraySeq(arr) {
     var myArrayObj = new SequenceClass();
-    myArrayObj.sequence = arr;
+    myArrayObj.sequence = [];
+    var b = arr[0];
+    var e = arr[arr.length - 1];
+
+    for (var i = b; i <= e; i++)
+        myArrayObj.sequence.push(i);
 
     return myArrayObj;
 }
-
 
 function RangeSeq(b, e) {
     var myRangeSeq = new SequenceClass();
@@ -59,45 +61,12 @@ function RangeSeq(b, e) {
 
 function logFive(SequenceObj) {
 
-    do {
-        console.log(SequenceObj.current());
-        SequenceObj.next();
-        if (SequenceObj.currentPos >= 5)
-            break;
-    }
-    while (SequenceObj.currentPos < SequenceObj.length);
+    while (SequenceObj.currentPos < SequenceObj.length - 1 && SequenceObj.currentPos < 4)
+        console.log(SequenceObj.next());
 
 }
-logFive(new ArraySeq([1, 2]));
+logFive(new ArraySeq([1, 3]));
 logFive(new RangeSeq(100, 1000));
 
 
-/*function ArraySeqV(arr) {
- var myArrayObj = new SequenceClass();
-
- myArrayObj.sequence = arr;
-
- /!* next line is for debug *!/
- console.log('arrayLength-', myArrayObj.length, 'currentValue-', myArrayObj.current(), 'nextTwoValues-', myArrayObj.next(), myArrayObj.next());
-
- return myArrayObj.sequence;
- }
-
-
- function RangeSeqV(b, e) {
- var myRangeSeq = new SequenceClass();
-
- for (var i = b; i <= e; i++)
- myRangeSeq.sequence.push(i);
-
- /!* next two lines are for debug *!/
- myRangeSeq.next();
- console.log('arrayLength-', myRangeSeq.length, 'currentValue-', myRangeSeq.current(), 'nextTwoValues-', myRangeSeq.next(), myRangeSeq.next());
-
- return myRangeSeq.sequence;
- }
-
- console.log(new ArraySeqV([1, 2]));
- console.log(new RangeSeqV(111, 122));
- */
 
