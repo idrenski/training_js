@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script>
+        function talksAbout(node) {
+            var string = "book";
+
+            if (node.nodeType == document.ELEMENT_NODE) {
+                for (var i = 0; i < node.childNodes.length; i++) {
+                    console.log(node.childNodes[i]);
+                    if (talksAbout(node.childNodes[i], string))
+                        return true;
+                }
+                return false;
+            } else if (node.nodeType == document.TEXT_NODE) {
+                return node.nodeValue.indexOf(string) > -1;
+            }
+        }
+
+    </script>
+</head>
+<body>
+
+    <p id="1">bo1ok</p>
+    <p id="2">bookhook</p>
+
+<script>
+
+
+
+    var para = document.body.getElementsByTagName("p");
+    console.log('paragraph elements: ', para);
+    console.log('second paragraph: ', 'attr=', para[1].getAttribute("id"), para[1].nodeType, para[1].childNodes[0]);
+    document.body.insertBefore(para[1], para[0]);
+
+    console.log(talksAbout(document.body));
+    console.log(para[0], para[1]);
+    console.log(document.getElementById("1"), document.getElementById("2"));
+
+
+</script>
+</body>
+</html>

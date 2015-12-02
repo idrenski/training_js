@@ -1,0 +1,72 @@
+<html>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+<script src="springy.js"></script>
+<script src="springyui.js"></script>
+<body>
+<script>
+
+    var VERSION_FILE = "[\n  " + [
+                '{"patch_number": "15.19.0", "patch_description": "Sprint 19", "patch_required": "15.18.0", "build_required": "", "last_version": "", "patch_latest": "", "build_latest": "", "dependency": {} }',
+                '{"patch_number": "15.20.0", "patch_description": "Sprint 20", "patch_required": "15.19.0", "build_required": "", "last_version": "", "patch_latest": "", "build_latest": "", "dependency": {} }',
+                '{"patch_number": "15.21.0", "patch_description": "Sprint 21", "patch_required": "15.20.0", "build_required": "", "last_version": "", "patch_latest": "", "build_latest": "", "dependency": {} }',
+                '{"patch_number": "15.21.1", "patch_description": "RPO signature fix", "patch_required": "15.21.0", "build_required": "", "last_version": "", "patch_latest": "", "build_latest": "", "dependency": {"IBANK.FACE": {"schema": "IBANK", "type":"package"}, "IBANK.TRANS": "IBANK.TRANS"}}'
+            ].join(",\n  ") + "\n]";
+
+    var graph = new Springy.Graph();
+
+    var patchTitle = graph.newNode({
+        label: '',
+        ondoubleclick: function () {}
+    });
+
+    var jsonObj = JSON.parse(VERSION_FILE);
+    //console.log(jsonObj);
+
+    for (var i = 0; i < jsonObj.length; i++)
+        graph.newNode({
+            "id": jsonObj[i].patch_number,
+            "label": jsonObj[i].patch_number,
+            "patch_description": jsonObj[i].patch_description,
+            "patch_required": jsonObj[i].patch_required,
+            "build_required": jsonObj[i].build_required,
+            "last_version": jsonObj[i].last_version,
+            "patch_latest": jsonObj[i].patch_latest,
+            "build_latest": jsonObj[i].build_latest,
+            "dependency": jsonObj[i].dependency,
+            ondoubleclick: function () {
+                alert(JSON.stringify(node.data.patch_description));
+            }
+        });
+    //console.log(graph.nodes);
+
+    var myNodes = [];
+    graph.nodes.forEach(function (element, index, array) {
+        if (index > 0) {
+            myNodes.push(element);
+            console.log(index, '=', element);
+        }
+    });
+    //console.log(myNodes);
+
+
+    graph.newEdge(myNodes[3], myNodes[2], {color: '#6A4A3C'});
+    graph.newEdge(myNodes[2], myNodes[1], {color: '#CC333F'});
+    graph.newEdge(myNodes[1], myNodes[0], {color: '#EB6841'});
+    //graph.newEdge(myNodes[1], myNodes[2], {color: '#CC333F'});
+    //graph.newEdge(patch15_23_0, patch15_22_0, {color: '#EDC951'});
+    //graph.newEdge(patch15_23_0, patch15_19_0, {color: '#DE9C51'});
+
+
+    jQuery(function () {
+        var springy = window.springy = jQuery('#PatchDependency').springy({
+            graph: graph,
+            nodeSelected: function (node) {
+               // console.log('Node selected: ' + JSON.stringify(node.data));
+            }
+        });
+    });
+</script>
+
+<canvas id="PatchDependency" width="640" height="480"/>
+</body>
+</html>
