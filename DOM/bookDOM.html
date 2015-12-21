@@ -33,12 +33,17 @@
     var para = document.body.getElementsByTagName("p");
     console.log('paragraph elements: ', para);
     console.log('second paragraph: ', 'attr=', para[1].getAttribute("id"), para[1].nodeType, para[1].childNodes[0]);
-    document.body.insertBefore(para[1], para[0]);
+/*    document.body.insertBefore(para[1], para[0]);
 
     console.log(talksAbout(document.body));
     console.log(para[0], para[1]);
-    console.log(document.getElementById("1"), document.getElementById("2"));
+    console.log(document.getElementById("1"), document.getElementById("2"));*/
 
+    var para1 = document.body.getElementsByTagName("p")[0];
+    console.log("clientHeight:", para1.clientHeight);
+    console.log("offsetHeight:", para1.offsetHeight);
+
+    console.log(para1.getBoundingClientRect());
 
 </script>
 </body>

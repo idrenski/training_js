@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+
+    <style>
+        strong {
+            font-size: 100%;
+            font-style: italic;
+            color: gray;
+        }
+        strong#main {
+            font-size: 120%;
+            color: red;
+        }
+
+        th, td {
+            padding: 15px;
+            text-align: left;
+        }
+
+        table {
+            border: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+
+This text is displayed <strong>inline</strong>,
+<strong id="main" style="display: block">as a block</strong>, and
+<strong style="display: none">not at all</strong>.
+
+<script>
+
+    function ShowHide() {
+        var strongs = document.body.getElementsByTagName("strong");
+
+        Array.prototype.forEach.call(strongs, function (strong) {
+            //console.log(typeof strong.getAttribute("style") == "string");
+
+            if (strong.getAttribute("style") == "display: block") {
+                strong.setAttribute("style", "display: none");
+            }
+            else {
+                strong.setAttribute("style", "display: block");
+            }
+        });
+    }
+
+/*    for (var start = 0; start < 10; start++) {
+        (function (param) {
+            setTimeout(function () {
+                console.log(param);
+                ShowHide();
+            }, 3000 * param);
+        })(start);
+    }*/
+
+    var obj = { table: 'table', tr: 'tr', th: 'th', td: 'td' };
+    console.log(Object.keys(obj));
+
+    var tableTags = ['table'];
+    var tableRowTags = ['tr','tr'];
+    var tableDetailTags = ['th','td'];
+
+    Array.prototype.forEach.call(tableTags, function(tableTag){
+        function textNode(text){
+            return document.createTextNode(text);
+        }
+
+      var t = document.body.appendChild(document.createElement(tableTag));
+
+        Array.prototype.forEach.call(tableRowTags, function(tableRowTag){
+
+           var r = t.appendChild(document.createElement(tableRowTag));
+
+            Array.prototype.forEach.call(tableDetailTags, function(tableDetailTag){
+
+                var d = r.appendChild(document.createElement(tableDetailTag));
+
+               console.log(tableDetailTag);
+            })
+
+        })
+
+    });
+
+/*    var table = document.createElement('table');
+    table.setAttribute("border","1");
+    var tableHeader = document.createElement('th');
+    var tableRow = document.createElement('tr');
+
+    function textNode(text){
+        return document.createTextNode(text);
+    }
+
+    function drawElement(element)
+    {
+        r.appendChild(textNode(element));
+    }
+
+    var t = document.body.appendChild(table);
+    var h = t.appendChild(tableHeader);
+    var r = h.appendChild(tableRow);
+
+    var headText = ["name","height","country"];
+    var elemText = ["Kilimanjaro","5895","Tanzania"];
+
+
+    Array.prototype.forEach.call(headText, function (r, element){
+        r.appendChild(document.createTextNode(element));
+    });
+
+    headText.forEach(drawElement);
+    elemText.forEach(drawElement);*/
+
+
+
+
+</script>
+</body>
+</html>
