@@ -94,12 +94,24 @@
 <div class="trail"></div>
 
 <script>
+
+    function getRandomColor() {
+        var letters = '0123456789ABCDEF'.split('');
+        var color = '#';
+        for (var i = 0; i < 6; i++ ) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        return color;
+    }
+
     var trail = document.querySelector("div");
+
     trail.addEventListener("mousedown", function (event) {
+        var trace = [];
         //console.log("mouse click");
         if (event.which == 1) {
             addEventListener("mousemove", moved);
-           // console.log("mouse moved");
+            // console.log("mouse moved");
             event.preventDefault(); // Prevent selection
         }
 
@@ -112,19 +124,37 @@
         }
 
         function moved(event) {
+
             if (!buttonPressed(event)) {
-               // window.requestAnimationFrame(trailFunc);
                 removeEventListener("mousemove", moved);
             } else {
                 trail.style.left = (event.pageX - 6) + "px";
                 trail.style.top = (event.pageY - 6) + "px";
-                document.body.appendChild(trail);
-               // console.log(event.pageX, event.pageY);
+
+                //document.body.appendChild(trail);
+                var coorXY = {};
+                coorXY.left = trail.style.left;
+                coorXY.top = trail.style.top;
+
+                trace.push(coorXY);
+
+                for (var i=Math.ceil(trace.length *.9); i<trace.length; i++)
+                {
+
+                    trail.style.left = trace[i].left;
+                    trail.style.top = trace[i].top;
+                    trail.style.background = getRandomColor();
+
+                    console.log(i, trace[i].left, trace[i].top);
+                }
+
+                // window.requestAnimationFrame(trailFunc);
+
             }
         }
     });
 
-    // Your code here.
+
 </script>
 
 
