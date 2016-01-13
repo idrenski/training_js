@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>change CheckBox Type</title>
+</head>
+<style>
+    label {
+        font-family: "ING Me";
+        font-size: 12px;
+        color: ThreeDDarkShadow;
+    }
+</style>
+
+<script>
+
+    function OnClick (){
+        var inputs = document.querySelectorAll("input");
+        var labels = document.querySelectorAll("label");
+        console.log(inputs);
+
+
+        for (var i = 0; i < inputs.length; i++) {
+            if (inputs[i].type == 'checkbox')
+                inputs[i].type = 'radio';
+            else
+                inputs[i].type = 'checkbox';
+
+            labels[i].innerHTML = 'label' + inputs[i].type + i;
+        }
+    }
+
+    function createBodyContent() {
+        var body = document.getElementsByTagName("body")[0];
+
+        for (var i = 0; i < 3; i++) {
+            var checkBoxElement = document.createElement("input");
+            checkBoxElement.type = 'checkbox';
+            checkBoxElement.name = 'choice';
+            checkBoxElement.id = i;
+
+            var labelElement = document.createElement("label");
+            labelElement.setAttribute('for', i.toString());
+            labelElement.innerHTML = checkBoxElement.type + i;
+
+            body.appendChild(labelElement);
+            body.appendChild(checkBoxElement);
+        }
+
+        var buttonElement = document.createElement("button");
+        buttonElement.innerHTML = 'change Type';
+        buttonElement.addEventListener("click", OnClick);
+
+        body.appendChild(buttonElement);
+    }
+
+</script>
+
+<body onload="createBodyContent()">
+
+</body>
+</html>
